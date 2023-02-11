@@ -1,0 +1,26 @@
+version: '3'
+services:
+  graph-node:
+    image: graphprotocol/graph-node:v0.29.0
+    ports:
+      - '8000:8000'
+      - '8001:8001'
+      - '8020:8020'
+      - '8030:8030'
+      - '8040:8040'
+    environment:
+      node_role: "combined-role"
+      node_id: "default"
+      postgres_host: postgres
+      postgres_user: graph-node
+      postgres_pass: let-me-in
+      postgres_db: graph-node
+      ipfs: 'ipfs:5001'
+      ethereum: 'mainnet:http://host.docker.internal:8545'
+      GRAPH_LOG: info
+  ipfs:
+    image: ipfs/go-ipfs:v0.10.0
+    ports:
+      - '5001:5001'
+    volumes:
+      - ./data/ipfs:/data/ipfs
